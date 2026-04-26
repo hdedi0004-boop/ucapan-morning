@@ -1,0 +1,156 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Love Spiral ❤️</title>
+
+<style>
+body {
+    margin: 0;
+    overflow: hidden;
+    height: 100vh;
+    background: radial-gradient(circle, #fff0f5, #ffc0cb);
+    font-family: sans-serif;
+}
+
+/* TEXT */
+h1 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    color: #ff2e63;
+    font-size: 50px;
+    text-align: center;
+    text-shadow: 0 0 25px rgba(255, 0, 100, 0.5);
+    opacity: 0;
+    transition: all 1.5s ease;
+}
+
+.show-text {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+}
+
+/* BUTTON */
+#startBtn {
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 15px 30px;
+    font-size: 18px;
+    border: none;
+    border-radius: 30px;
+    background: #ff4d6d;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 0 20px rgba(255, 0, 100, 0.5);
+    transition: 0.3s;
+}
+
+#startBtn:hover {
+    transform: translate(-50%, -50%) scale(1.1);
+}
+
+/* HEART */
+.heart {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    animation: float linear forwards;
+    pointer-events: none;
+    filter: blur(0.3px);
+}
+
+/* ANIMATION */
+@keyframes float {
+    0% {
+        transform: translate(0, -10vh) scale(0.5) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    50% {
+        transform: translate(40px, 50vh) scale(1) rotate(180deg);
+    }
+    100% {
+        transform: translate(-40px, 110vh) scale(1.2) rotate(360deg);
+        opacity: 0;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<h1 id="text">good morningg adee, i love more than you know ❤️❤️❤️</h1>
+
+<button id="startBtn">Tap untuk masuk ya dek ❤️</button>
+
+<audio id="musik" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+
+    heart.innerHTML = `
+    <svg viewBox="0 0 32 29.6" width="100%" height="100%">
+      <path fill="${randomColor()}" d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.4C14.7,2.7,11.8,0,8.4,0
+      C3.8,0,0,3.8,0,8.4c0,9.5,16,21.2,16,21.2s16-11.7,16-21.2C32,3.8,28.2,0,23.6,0z"/>
+    </svg>`;
+
+    heart.style.left = Math.random() * 100 + "vw";
+
+    let size = Math.random() * 25 + 10;
+    heart.style.width = size + "px";
+    heart.style.height = size + "px";
+
+    let duration = Math.random() * 4 + 4;
+    heart.style.animationDuration = duration + "s";
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+        heart.remove();
+    }, duration * 1000);
+}
+
+function randomColor() {
+    const colors = [
+        "#ff4d6d","#ff758f","#ff8fa3",
+        "#ffb3c1","#ffccd5","#ff5c8a"
+    ];
+    return colors[Math.floor(Math.random() * colors.length)];
+}
+
+// tombol start
+document.getElementById("startBtn").addEventListener("click", function() {
+    const audio = document.getElementById("musik");
+    const text = document.getElementById("text");
+
+    audio.volume = 0.3;
+    audio.play();
+
+    // tampilkan text dengan animasi
+    text.classList.add("show-text");
+
+    // hilangkan tombol dengan efek fade
+    this.style.opacity = "0";
+    setTimeout(() => {
+        this.style.display = "none";
+    }, 500);
+
+    // mulai animasi love
+    setInterval(createHeart, 80);
+});
+</script>
+
+</body>
+</html>
+```
